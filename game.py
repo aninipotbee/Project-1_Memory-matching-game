@@ -10,22 +10,19 @@ class MemoryMatchGame:
         self.root.geometry("700x760")
         self.root.resizable(False, False)
 
-        # Meaningful lists used by the actual game
         self.all_cards = [
             "A", "A", "B", "B", "C", "C",
             "D", "D", "E", "E", "F", "F",
             "G", "G", "H", "H"
         ]
-
-        # Nested list: cards for the three rounds
+        # Nested list
         self.round_cards = [
-            self.all_cards[:6],    # Round 1: 3 pairs
-            self.all_cards[:10],   # Round 2: 5 pairs
-            self.all_cards[:16]    # Round 3: 8 pairs
+            self.all_cards[:6],    
+            self.all_cards[:10],   
+            self.all_cards[:16]    
         ]
 
         self.game_history = []
-        # Leaderboard list: [player name, final score]
         self.leaderboard = []
         self.start_screen()
 
@@ -109,7 +106,7 @@ class MemoryMatchGame:
     def start_round(self):
         self.clear_screen()
 
-        # Select the current round's list using list indexing
+        # ---Select the current round's list using list indexing ^_____^
         self.cards = self.round_cards[self.current_round - 1].copy()
         random.shuffle(self.cards)
 
@@ -123,7 +120,6 @@ class MemoryMatchGame:
         self.second_choice = None
         self.busy = False
 
-        # More cards = more turns
         self.turns = len(self.cards) + 2
         self.peek_uses = 2
 
@@ -219,7 +215,6 @@ class MemoryMatchGame:
             )
             return
 
-        # List indexing accesses the selected card
         self.revealed_cards.append(index)
         self.buttons[index].config(text=self.cards[index])
 
@@ -234,7 +229,6 @@ class MemoryMatchGame:
         self.busy = True
         self.turns -= 1
 
-        # Actual gameplay history using a nested list
         self.turn_history.append([
             self.first_choice + 1,
             self.second_choice + 1
@@ -250,7 +244,6 @@ class MemoryMatchGame:
                 text=f"{first} and {second} do not match."
             )
 
-            # Delay hiding so the player can see the second card
             self.root.after(900, self.handle_mismatch)
 
     def handle_match(self):
@@ -260,7 +253,6 @@ class MemoryMatchGame:
         self.matched_cards[first] = True
         self.matched_cards[second] = True
 
-        # Meaningful nested list: symbol + card positions
         self.matched_pairs.append([
             self.cards[first],
             first + 1,
@@ -272,7 +264,6 @@ class MemoryMatchGame:
         self.buttons[first].config(state="disabled")
         self.buttons[second].config(state="disabled")
 
-        # Remove the two revealed positions from the revealed_cards list.
         if first in self.revealed_cards:
             self.revealed_cards.remove(first)
         if second in self.revealed_cards:
@@ -294,7 +285,7 @@ class MemoryMatchGame:
         self.buttons[first].config(text="?")
         self.buttons[second].config(text="?")
 
-        # Use pop() during actual gameplay to remove revealed cards.
+        # Use pop() - remove revealed cards.
         # Pop by position safely from the end first.
         if len(self.revealed_cards) > 0:
             self.revealed_cards.pop()
@@ -337,7 +328,6 @@ class MemoryMatchGame:
         self.turns -= 1
         self.busy = True
 
-        # Temporary revealed-card list controls the Peek feature
         self.revealed_cards = []
 
         for index in range(len(self.cards)):
@@ -357,7 +347,7 @@ class MemoryMatchGame:
             if not self.matched_cards[index]:
                 self.buttons[index].config(text="?")
 
-        # Clear Peek data using pop()
+        # Clears Peek data using pop()
         while len(self.revealed_cards) > 0:
             self.revealed_cards.pop()
 
@@ -373,7 +363,6 @@ class MemoryMatchGame:
         self.update_info()
 
     def check_round_end(self):
-        # len() calculates how many pairs have been matched
         if len(self.matched_pairs) == len(self.cards) // 2:
             self.end_round(True)
         elif self.turns <= 0:
@@ -382,7 +371,6 @@ class MemoryMatchGame:
     def end_round(self, won):
         self.busy = True
 
-        # Sort the matched-pair list for a meaningful final arrangement
         self.matched_pairs.sort()
 
         self.game_history.append({
@@ -430,10 +418,9 @@ class MemoryMatchGame:
             font=("Arial", 18, "bold")
         ).pack(pady=5)
 
-        # Add this completed game to the leaderboard.
         self.leaderboard.append([self.player_name, self.score])
 
-        # Sort by score from highest to lowest.
+        # Sort the by score from highest to lowest.
         self.leaderboard.sort(key=lambda player: player[1], reverse=True)
 
         tk.Label(
@@ -455,7 +442,6 @@ class MemoryMatchGame:
             font=("Arial", 11)
         ).pack()
 
-        # Search for the player's name in the leaderboard.
         tk.Label(
             self.root,
             text="Search your name in the leaderboard:",
@@ -510,7 +496,6 @@ class MemoryMatchGame:
 
         found = False
 
-        # Traverse and search the leaderboard list.
         for position in range(len(self.leaderboard)):
             player = self.leaderboard[position]
 
