@@ -35,8 +35,8 @@ class MemoryMatchGame:
 
         title = tk.Label(
             self.root,
-            text="MEMORY MATCH",
-            font=("Arial", 30, "bold")
+            text="🤯MEMORY MATCH",
+            font=("Times new roman", 30, "bold")
         )
         title.pack(pady=45)
 
