@@ -15,7 +15,7 @@
 | TC-09 | Complete all rounds | Winning message should appear | Winning message appeared | Passed |
 | TC-10 | Click Restart Game | Game should reset | Game reset correctly | Passed |
 
-# **Bug 1.2**
+## **Bug 1.2**
 
 ### **Bug 1: Empty Player Name**
 
