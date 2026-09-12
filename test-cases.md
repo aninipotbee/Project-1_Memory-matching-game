@@ -1,4 +1,4 @@
-# **Group 8_Memory Matching Game CS2C**
+# **Group 7_Memory Matching Game CS2C**
 
 ## **Test Table 1.1**
 
@@ -15,7 +15,7 @@
 | TC-09 | Complete all rounds | Winning message should appear | Winning message appeared | Passed |
 | TC-10 | Click Restart Game | Game should reset | Game reset correctly | Passed |
 
-## **Bug 1.2**
+## **Bug Report 1.2**
 
 ### **Bug 1: Empty Player Name**
 
